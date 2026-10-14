@@ -1,0 +1,21 @@
+# Secrets and credentials
+kaggle.json
+.env
+*.pem
+*.key
+
+# Datasets and generated outputs (do not commit private/large data)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+results/*
+!results/.gitkeep
+
+# Python/Jupyter
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
