@@ -1,133 +1,113 @@
-# Social Media Sentiment and Network Influence Analysis
+# Social Media Bot Detection and Opinion Dynamics
 
-A Python project based on a Google Colab academic notebook. It combines tweet sentiment classification, heuristic user-authenticity scoring, mention-network construction, and PageRank-based influence analysis.
+A machine learning and network science project that analyzes social media activity to study user authenticity, sentiment, influential users, and the impact of bots on online opinion dynamics.
 
-> **Scope note:** The uploaded notebook does not implement a supervised bot-vs-human classifier or the disruptive/propaganda opinion-dynamics simulation shown in other project screenshots. This repository documents the functionality present in the uploaded notebook. Add those components only if they are part of the final, tested codebase.
+## 📌 Project Overview
 
-## What it does
+Social media platforms allow information and opinions to spread rapidly. However, automated accounts (bots) and coordinated activity can influence discussions, amplify particular viewpoints, and affect the overall distribution of public opinion.
 
-1. Cleans tweet text and trains a TF-IDF + Logistic Regression sentiment classifier on Sentiment140.
-2. Predicts a positive-sentiment probability for political tweets and maps it to Positive, Neutral, or Negative using thresholds of 0.6 and 0.4.
-3. Computes a **heuristic authenticity score** from vocabulary richness, variation in predicted sentiment, and tweet count. This is a project-specific heuristic, not a validated probability that an account is genuine.
-4. Builds a directed interaction graph from `@mentions` (tweet author → mentioned handle).
-5. Computes PageRank and combines it with the heuristic authenticity score to rank users.
-6. Produces CSV summaries and visualizations.
+This project combines machine learning, sentiment analysis, and graph-based network analysis to investigate social media interactions and understand how user credibility and network influence relate to opinion formation.
 
-## My contribution (adapt to your actual role)
+## 🎯 Objectives
 
-For the network-analysis component:
-- Constructed a directed mention graph using NetworkX.
-- Used PageRank to estimate structural influence in the interaction network.
-- Combined network influence with a heuristic user-authenticity measure.
-- Visualized top-ranked accounts and cumulative PageRank distribution.
+- Analyze sentiment in social media posts.
+- Explore methods for estimating user authenticity and credibility.
+- Represent user interactions as a graph network.
+- Identify influential users using network analysis techniques.
+- Investigate how automated or coordinated activity may affect consensus and polarization.
+- Visualize patterns in sentiment, user influence, and network structure.
 
-This is a collaborative project. Keep only bullets that accurately describe your own work.
+## 🛠️ Technologies Used
 
-## Repository structure
+- **Python** — core programming language
+- **Pandas** — data manipulation and analysis
+- **NumPy** — numerical computations
+- **Scikit-learn** — machine learning and text classification
+- **NLTK** — natural language processing
+- **NetworkX** — graph construction and network analysis
+- **Matplotlib / Seaborn** — data visualization
+- **Jupyter Notebook / Google Colab** — experimentation and analysis
 
-```text
-.
-├── notebooks/
-│   └── social_media_sentiment_network_analysis.ipynb
-├── src/social_media_analysis/
-│   ├── data.py
-│   ├── text_processing.py
-│   ├── sentiment.py
-│   ├── network_analysis.py
-│   └── pipeline.py
-├── data/
-│   ├── raw/          # dataset files go here; ignored by Git
-│   └── processed/
-├── results/          # generated output; ignored by Git
-├── run_analysis.py
-├── requirements.txt
-└── README.md
-```
+*The exact dependencies depend on the libraries used in the final implementation.*
 
-## Dataset setup
+## 🔍 Project Methodology
 
-The original notebook references these files:
+### 1. Data Processing
 
-- `tweets.csv`
-- `BJP_tweets.csv`
-- `modi_reviews.csv`
-- `rahul_reviews.csv`
-- `training.1600000.processed.noemoticon.csv` (Sentiment140)
+Social media data is prepared for analysis by handling relevant text fields, cleaning text, and extracting the information required for downstream tasks.
 
-Place files in `data/raw/`. The loader expects a tweet-text column such as `Tweet`, `tweet`, `text`, `content`, or `full_text`, and a user column such as `User`, `user`, `username`, `screen_name`, `author`, or `user_name`. Check each dataset's license and terms before sharing or redistributing it. Dataset column schemas may need adjustment to match the source files.
+### 2. Sentiment Analysis
 
-The original notebook used Kaggle dataset identifiers:
+Text-processing techniques and machine learning are used to analyze the sentiment expressed in social media posts.
 
-- `noorsaeed/indian-election-sentiment-dataset-tweets`
-- `adritpal08/dataset-of-indian-politics-tweets-and-reactions`
-- `anveshrao123/indian-political-tweets`
-- `kazanova/sentiment140`
+The analysis helps explore the distribution of opinions and sentiment toward different topics or political groups.
 
-Use Kaggle credentials privately if required. **Never upload `kaggle.json`, API tokens, or private data to GitHub.**
+### 3. User Authenticity and Credibility
 
-## Setup
+User activity and available behavioral features can be examined to estimate account authenticity.
 
-Python 3.10+ is recommended.
+Credibility estimates can then be used alongside network information to study the relationship between account behavior and influence.
+
+> Note: A heuristic authenticity score is not equivalent to a verified bot classification model. The implementation and its limitations should be documented clearly.
+
+### 4. Social Network Construction
+
+A graph is constructed to represent relationships between users.
+
+- **Nodes:** Social media users
+- **Edges:** Interactions or mentions between users
+- **Directed edges:** Can represent the direction of a mention or interaction
+
+The graph provides a structural view of how users are connected.
+
+### 5. Network Analysis and Influential Users
+
+Graph-based techniques are used to investigate the structure of the social network and identify potentially influential accounts.
+
+Depending on the implemented analysis, this may include:
+
+- Degree centrality
+- Clustering coefficient
+- PageRank
+- Connected components
+- Network visualization
+
+These measures help characterize user connectivity and structural influence.
+
+### 6. Opinion Dynamics
+
+Opinion dynamics examines how individual opinions may change through interactions within a network.
+
+The broader project investigates concepts such as:
+
+- **Consensus:** Opinions converge toward a similar position.
+- **Polarization:** Opinions become divided into distinct or opposing groups.
+- **Bot influence:** Automated or coordinated activity may affect the spread and distribution of opinions.
+
+Simulation results should be interpreted according to the assumptions and parameters used by the implemented model.
+
+## 📊 Expected Outcomes
+
+The project aims to support the analysis of:
+
+- Sentiment patterns in social media discussions.
+- Structural relationships among users.
+- Potentially influential accounts.
+- Differences in connectivity and network structure.
+- The possible effects of automated activity on opinion formation.
+
+Actual results and quantitative findings should be added after running and validating the final implementation.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.9 or later
+- Git
+- Jupyter Notebook or Google Colab
+
+### 1. Clone the Repository
 
 ```bash
-python -m venv .venv
-```
-
-Activate it:
-
-- Windows PowerShell: `.venv\Scripts\Activate.ps1`
-- macOS/Linux: `source .venv/bin/activate`
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run the modular pipeline from the repository root:
-
-```bash
-python run_analysis.py --data-dir data/raw --output-dir results
-```
-
-If the Sentiment140 file is stored elsewhere:
-
-```bash
-python run_analysis.py --data-dir data/raw --sentiment140 path/to/training.1600000.processed.noemoticon.csv --output-dir results
-```
-
-The datasets are not included in this repository. First execution may take time because Sentiment140 contains many tweets and the classifier must be trained.
-
-## Outputs
-
-The pipeline writes the following files to `results/`:
-
-- `tweet_analysis.csv`
-- `user_authenticity.csv`
-- `user_influence.csv`
-- `top_10_influential_users.csv`
-- `target_group_sentiment_counts.csv`
-- `sentiment_model_metrics.txt`
-- `top_10_influence.png` (when results are available)
-- `target_group_sentiment.png` (when results are available)
-
-## Method and limitations
-
-- The classifier is trained on Sentiment140's binary labels (0 = negative, 4 = positive, mapped internally to 0/1).
-- Sentiment labels use a simple probability threshold: below 0.4 is Negative, above 0.6 is Positive, and values between the thresholds are Neutral.
-- Target-group assignment is keyword-based (`Modi/BJP` and `Rahul/Congress`), so it can misclassify tweets that mention terms in another context.
-- PageRank is a graph-structure metric; it is not proof of real-world influence.
-- The authenticity score is an experimental heuristic, not a calibrated confidence score or proof that an account is human.
-- Mentions can point to accounts absent from the source dataset. Such handles may appear as graph nodes but will not have an authenticity score.
-- The result is sensitive to dataset quality, duplicate tweets, missing user identifiers, preprocessing, and model assumptions.
-
-## Future work
-
-- Validate the authenticity heuristic against labeled human/bot accounts.
-- Add temporal network features and coordinated-retweet analysis.
-- Integrate a tested bot-classification model and opinion-dynamics simulations if those modules are available in the final project.
-- Evaluate sentiment and influence results with stronger baselines and documented metrics.
-
-## Academic use
-
-This repository is a cleaned and modularized presentation of an academic project. Update the authors/team section, data-source citations, and personal contribution before publishing. Respect dataset licenses and privacy requirements.
+git clone https://github.com/hashmifahad182/SocialBot_Opinion_Dynamics.git
+cd SocialBot_Opinion_Dynamics
